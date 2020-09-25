@@ -32,7 +32,8 @@ function! s:get_p4_depot_root(path) abort
     let l:prev_cur = ''
     while l:cur != l:prev_cur
         if filereadable(l:cur.'/.p4config') ||
-                    \filereadable(l:cur.'/.p4ignore')
+                    \filereadable(l:cur.'/.p4ignore') ||
+                    \filereadable(l:cur.'/.p4ignore.txt')
             return l:cur
         endif
         let l:prev_cur = l:cur
