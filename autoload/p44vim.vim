@@ -48,8 +48,10 @@ endfunction
 
 let s:ignore_next_w12 = 0
 
-function! s:auto_edit_buffer() abort
-    call p44vim#p4edit()
+function! s:maybe_auto_edit_buffer() abort
+    if &readonly
+        call p44vim#p4edit()
+    endif
 endfunction
 
 function! s:maybe_ignore_w12() abort
@@ -72,7 +74,7 @@ function! p44vim#install_p4_auto_commands() abort
 
     augroup p44v_auto
         autocmd!
-        autocmd FileChangedRO * call <SID>auto_edit_buffer()
+        autocmd BufWritePre * call <SID>maybe_auto_edit_buffer()
         autocmd FileChangedShell * call <SID>maybe_ignore_w12()
     augroup END
 endfunction
