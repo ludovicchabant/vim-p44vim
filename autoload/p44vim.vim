@@ -20,7 +20,11 @@ function! s:run_perforce_command(...) abort
     call extend(l:cmd, l:args)
     let l:strcmd = join(map(l:cmd, 'shellescape(v:val)'))
     call s:trace("Running command: ".l:strcmd)
-    silent call system(l:strcmd)
+    let l:cmd_out = system(l:strcmd)
+    if g:p44v_trace
+        call s:trace(l:cmd_out)
+    endif
+    return l:cmd_out
 endfunction
 
 function! s:get_p4_depot_root(path) abort
