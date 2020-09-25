@@ -83,6 +83,10 @@ endfunction
 
 " Commands {{{
 
+function! p44vim#p4info() abort
+    echom s:run_perforce_command(['info'])
+endfunction
+
 function! p44vim#p4sync(...) abort
     let l:cmd = ['sync'] + a:000
     call s:run_perforce_command(l:cmd)

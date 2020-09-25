@@ -31,6 +31,7 @@ augroup END
 
 " P4 Commands {{{
 
+command! P4Info :call p44vim#p4info()
 command! -nargs=* -complete=file P4Sync :call p44vim#p4sync(<f-args>)
 command! -nargs=* -complete=file P4Edit :call p44vim#p4edit(<f-args>)
 command! -nargs=* -complete=file P4Revert :call p44vim#p4revert(<f-args>)
