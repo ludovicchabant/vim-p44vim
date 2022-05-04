@@ -8,8 +8,16 @@ if !exists('g:p44v_trace')
     let g:p44v_trace = 0
 endif
 
+if !exists('g:p44v_disable')
+    let g:p44v_disable = 0
+endif
+
 if !exists('g:p44v_exe')
     let g:p44v_exe = 'p4'
+endif
+
+if !exists('g:p44v_just_make_rw')
+    let g:p44v_just_make_rw = 0
 endif
 
 if !executable(g:p44v_exe)

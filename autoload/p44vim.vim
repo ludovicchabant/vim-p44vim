@@ -49,7 +49,7 @@ endfunction
 let s:ignore_next_w12 = 0
 
 function! s:maybe_auto_edit_buffer() abort
-    if &readonly
+    if &readonly && !g:p44v_disable
         call p44vim#p4edit()
     endif
 endfunction
@@ -98,9 +98,16 @@ function! p44vim#p4edit(...) abort
     else
         let l:filenames = [expand('%:p')]
     endif
-    let l:cmd = ['edit'] + l:filenames
-    let l:ignore_next_w12 = 1
-    call s:run_perforce_command(l:cmd)
+    if g:p44v_just_make_rw
+        call s:trace("Making ".len(l:filenames)." files writable")
+        for fname in l:filenames
+            call setfperm(fname, "rw-r-----")
+        endfor
+    else
+        let l:cmd = ['edit'] + l:filenames
+        let l:ignore_next_w12 = 1
+        call s:run_perforce_command(l:cmd)
+    endif
     set noreadonly
 endfunction
 
